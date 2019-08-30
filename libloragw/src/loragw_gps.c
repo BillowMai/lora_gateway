@@ -731,7 +731,7 @@ int lgw_gps_sync(struct tref *ref, uint32_t count_us, struct timespec utc, struc
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
+///timespec -结构体变量只有s和ns
 int lgw_cnt2utc(struct tref ref, uint32_t count_us, struct timespec *utc) {
     double delta_sec;
     double intpart, fractpart;

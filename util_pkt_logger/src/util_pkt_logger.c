@@ -52,7 +52,7 @@ static int exit_sig = 0; /* 1 -> application terminates cleanly (shut down hardw
 static int quit_sig = 0; /* 1 -> application terminates without shutting down the hardware */
 
 /* configuration variables needed by the application  */
-uint64_t lgwm = 0; /* LoRa gateway MAC address */
+uint64_t lgwm = 0; /* LoRa gateway MAC address */ ///eg. "gateway_ID": "AA555A0000000000",
 char lgwm_str[17];
 
 /* clock and log file management */
@@ -432,7 +432,7 @@ int main(int argc, char **argv)
     sigaction(SIGTERM, &sigact, NULL);
 
     /* configuration files management */
-    if (access(debug_conf_fname, R_OK) == 0) {
+    if (access(debug_conf_fname, R_OK) == 0) { //////access()检查调用进程是否可以对指定的文件执行某种操作
     /* if there is a debug conf, parse only the debug conf */
         MSG("INFO: found debug configuration file %s, other configuration files will be ignored\n", debug_conf_fname);
         parse_SX1301_configuration(debug_conf_fname);
@@ -474,7 +474,7 @@ int main(int argc, char **argv)
     open_log();
 
     /* main loop */
-    while ((quit_sig != 1) && (exit_sig != 1)) {
+    while ((quit_sig != 1) && (exit_sig != 1)) { ////quit_sig is control by sigaction function , (sigact.sa_handler = sig_handler;)
         /* fetch packets */
         nb_pkt = lgw_receive(ARRAY_SIZE(rxpkt), rxpkt);
         if (nb_pkt == LGW_HAL_ERROR) {

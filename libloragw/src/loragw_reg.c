@@ -500,8 +500,8 @@ int reg_r_align32(void *spi_target, uint8_t spi_mux_mode, uint8_t spi_mux_target
 /* -------------------------------------------------------------------------- */
 /* --- PUBLIC FUNCTIONS DEFINITION ------------------------------------------ */
 
-/* Concentrator connect */
-int lgw_connect(bool spi_only, uint32_t tx_notch_freq) {
+/* Concentrator connect */ ///判断有无FPGA，配置FPGA，检查有无SX1301，复位SX1301页选
+int lgw_connect(bool spi_only, uint32_t tx_notch_freq) {//tx_notch_freq用于抑制频谱的，日本对频谱要求比较严格，我们的超出了。通过这个限制频谱
     int spi_stat = LGW_SPI_SUCCESS;
     uint8_t u = 0;
     int x;
@@ -530,7 +530,7 @@ int lgw_connect(bool spi_only, uint32_t tx_notch_freq) {
         if (check_fpga_version(u) != true) {
             /* We failed to read expected FPGA version, so let's assume there is no FPGA */
             DEBUG_PRINTF("INFO: no FPGA detected or version not supported (v%u)\n", u);
-            lgw_spi_mux_mode = LGW_SPI_MUX_MODE0;
+            lgw_spi_mux_mode = LGW_SPI_MUX_MODE0;///这里要跟硬件对应，HW1.5版本是没有FPGA的
         } else {
             DEBUG_PRINTF("INFO: detected FPGA with SPI mux header (v%u)\n", u);
             lgw_spi_mux_mode = LGW_SPI_MUX_MODE1;

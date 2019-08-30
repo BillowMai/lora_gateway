@@ -228,7 +228,7 @@ int lgw_spi_r(void *spi_target, uint8_t spi_mux_mode, uint8_t spi_mux_target, ui
     spi_device = *(int *)spi_target; /* must check that spi_target is not null beforehand */
 
     /* prepare frame to be sent */
-    if (spi_mux_mode == LGW_SPI_MUX_MODE1) {
+    if (spi_mux_mode == LGW_SPI_MUX_MODE1) { ///FPGA混合模式，第一字节是FPGA的目标SPI
         out_buf[0] = spi_mux_target;
         out_buf[1] = READ_ACCESS | (address & 0x7F);
         out_buf[2] = 0x00;

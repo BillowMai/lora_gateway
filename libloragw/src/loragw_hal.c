@@ -111,7 +111,9 @@ the _start and _send functions assume they are valid.
 
 static bool lgw_is_started;
 
-static bool rf_enable[LGW_RF_CHAIN_NB];
+///以下这堆变量基本从global.json文件解析得来
+
+static bool rf_enable[LGW_RF_CHAIN_NB]; 
 static uint32_t rf_rx_freq[LGW_RF_CHAIN_NB]; /* absolute, in Hz */
 static float rf_rssi_offset[LGW_RF_CHAIN_NB];
 static bool rf_tx_enable[LGW_RF_CHAIN_NB];
